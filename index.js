@@ -25,14 +25,14 @@ http.createServer((req, res) => {
 
             if (!email && !email.email) {
                 res.writeHead(400, {'Content-Type': 'text/plain'});
-                res.write('don\'t found a email.');
+                res.write('Don\'t found a email.');
                 res.end();
                 return;
             }
 
             let db = DB(JSON.parse(config));
 
-            let collection = db.collection('preUser');
+            let collection = db.collection('prospectUser');
 
             collection.insert(email).then((suc) => {
 
