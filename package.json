@@ -1,0 +1,22 @@
+{
+  "name": "simple-server-1202",
+  "version": "0.0.1",
+  "description": "Simple server for get some info for Local 1202",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./tests/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flpms/simple-server-1202.git"
+  },
+  "author": "Filipe M. Silva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flpms/simple-server-1202/issues"
+  },
+  "homepage": "https://github.com/flpms/simple-server-1202#readme",
+  "dependencies": {
+    "simple-connection": "^1.0.6"
+  }
+}
