@@ -8,10 +8,26 @@ const config = fs.readFileSync('./config/db.json', 'utf-8');
 
 http.createServer((req, res) => {
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-Width');
+    res.setHeader('Access-Control-Allow-Max-Age', '86400');
+
+    if ((req.method === 'OPTIONS')) {
+	console.log('OPTIONS REQUEST');
+        res.end();
+    }
+
     if ((req.url === '/api/users/') && (req.method === 'POST')) {
 
         req.on('data', (vl) => {
             let email = JSON.parse(vl);
+
+            if (!email && !email.email) {
+                res.writeHead(400, {'Content-Type': 'text/plain'});
+                res.write('don\'t found a email.');
+                res.end();
+            }
 
             let db = DB(JSON.parse(config));
 
@@ -24,7 +40,7 @@ http.createServer((req, res) => {
                 res.end();
             }).catch((err) => {
                 res.writeHead(503, {'Content-Type': 'text/plain'});
-                res.write('ok');
+                res.write('Can\'t save email');
                 res.end();
             });
 
@@ -39,3 +55,7 @@ http.createServer((req, res) => {
 
 console.log('Server is read');
 console.log('Config is read = ', (config) ? true : false);
+
+process.on('uncaughtException', (exp) => {
+    console.log(exp);
+});
